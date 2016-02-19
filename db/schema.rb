@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219145035) do
+ActiveRecord::Schema.define(version: 20160219191755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,26 @@ ActiveRecord::Schema.define(version: 20160219145035) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "game_cards", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "card_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_game_cards_on_card_id", using: :btree
+    t.index ["game_id"], name: "index_game_cards_on_game_id", using: :btree
+    t.index ["user_id"], name: "index_game_cards_on_user_id", using: :btree
+  end
+
+  create_table "game_decks", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "deck_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deck_id"], name: "index_game_decks_on_deck_id", using: :btree
+    t.index ["game_id"], name: "index_game_decks_on_game_id", using: :btree
+  end
+
   create_table "games", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "bet",        null: false
@@ -55,5 +75,10 @@ ActiveRecord::Schema.define(version: 20160219145035) do
 
   add_foreign_key "deck_cards", "cards"
   add_foreign_key "deck_cards", "decks"
+  add_foreign_key "game_cards", "cards"
+  add_foreign_key "game_cards", "games"
+  add_foreign_key "game_cards", "users"
+  add_foreign_key "game_decks", "decks"
+  add_foreign_key "game_decks", "games"
   add_foreign_key "games", "users"
 end
