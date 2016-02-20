@@ -2,6 +2,7 @@
   .row
     .col-md-12
       = link_to 'New Game', new_game_path, class: 'btn btn-primary'
+      Dealer Wins: #{@games_won_by_dealer} | Player Wins: #{@games_won_by_user}
   .row
     .col-md-10
       %table.table.table-striped

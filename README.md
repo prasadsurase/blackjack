@@ -3,22 +3,8 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+ruby '2.2.2'
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+After 'bundle install', run:
+1) bin/rails db:environment:set RAILS_ENV=development
+2) bundle exec rake db:drop db:create db:migrate db:seed tmp:clear log:clear --trace

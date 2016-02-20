@@ -10,6 +10,8 @@ class Game < ApplicationRecord
   validates :user, :admin, presence: true
   validates :bet, numericality: { only_integer: true, greater_than: 0 }, presence: true
 
+  enum winning_type: [ :blackjack, :majority]
+
   scope :finished, -> { where.not(winner_id: nil) }
   scope :ongoing, -> { where(winner_id: nil) }
 

@@ -59,12 +59,12 @@ ActiveRecord::Schema.define(version: 20160219191755) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "bet",                        null: false
-    t.integer  "admin_id",                   null: false
+    t.integer  "bet",                      null: false
+    t.integer  "admin_id",                 null: false
     t.integer  "winner_id"
-    t.boolean  "finished",   default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "winning_type", default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["user_id"], name: "index_games_on_user_id", using: :btree
   end
 

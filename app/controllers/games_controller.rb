@@ -1,6 +1,8 @@
 class GamesController < ApplicationController
   def index
     @games = Game.all.includes([:admin, :user])
+    @games_won_by_dealer = admin_user.games_won.count
+    @games_won_by_user = current_user.games_won.count
   end
 
   def new

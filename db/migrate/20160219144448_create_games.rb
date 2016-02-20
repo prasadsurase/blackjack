@@ -5,7 +5,7 @@ class CreateGames < ActiveRecord::Migration[5.0]
       t.integer :bet, null: false
       t.integer :admin_id, foreign_key: true, null: false
       t.integer :winner_id, foreign_key: true
-      t.boolean :finished, default: false
+      t.column :winning_type, :integer, default: 0
 
       t.timestamps
     end

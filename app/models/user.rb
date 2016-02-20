@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :games
   has_many :admin_games, class_name: 'Game', foreign_key: :admin_id
-  has_many :games_won, class_name: 'User', foreign_key: :winner_id
+  has_many :games_won, class_name: 'Game', foreign_key: :winner_id
   has_many :game_cards
 
   validates :name, presence: true
