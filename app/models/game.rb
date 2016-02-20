@@ -19,12 +19,7 @@ class Game < ApplicationRecord
 
   def hit
     user.game_cards.create!(game: self, card: cards.sample)
-    winner = if user.blackjack?(self)
-               user
-             elsif user.bust?(self)
-               admin
-             end
-    self.update({winner: winner}) if winner
+    update_winner
   end
 
   def stand
@@ -52,5 +47,17 @@ class Game < ApplicationRecord
     end
 
     admin.game_cards.create!(game: self, card: cards.sample)
+    update_winner
+  end
+
+  private
+
+  def update_winner
+    winner = if user.blackjack?(self)
+               user
+             elsif user.bust?(self)
+               admin
+             end
+    self.update({winner: winner}) if winner
   end
 end

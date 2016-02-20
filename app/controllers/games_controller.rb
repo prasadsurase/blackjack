@@ -16,7 +16,6 @@ class GamesController < ApplicationController
     if @game.save
       redirect_to game_path(@game) and return
     end
-    binding.pry
     render :new
   end
 
