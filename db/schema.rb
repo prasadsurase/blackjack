@@ -81,6 +81,9 @@ ActiveRecord::Schema.define(version: 20160220085936) do
   create_table "users", force: :cascade do |t|
     t.string   "name",                       null: false
     t.boolean  "admin",      default: false
+    t.integer  "blackjacks", default: 0,     null: false
+    t.integer  "busts",      default: 0,     null: false
+    t.integer  "majorities", default: 0,     null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end

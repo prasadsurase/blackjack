@@ -1,24 +1,36 @@
 .container
   .row
-    .col-md-4
-      .well
-        %h2
-          %span.label.label-default Dealer
-        %h3
-          - @admin_cards.each do |card|
-            %span.label.label-primary
-              = card.value
-    .col-md-4
-      .well
-        %h2
-          %span.label.label-default Player
-        %h3
-          - @user_cards.each do |card|
-            %span.label.label-danger
-              = card.value
-        - unless @game.winner
-          = link_to 'Hit', hit_game_path(@game), class: 'btn btn-primary', method: :put
-          = link_to 'Stand', stand_game_path(@game), class: 'btn btn-primary', method: :put
+    .col-md-8
+      .row
+        .col-md-6
+          .well
+            %h2
+              %span.label.label-default Dealer
+            %h3
+              - @admin_cards.each do |card|
+                %span.label.label-primary
+                  = card.value
+        .col-md-6
+          .well
+            %h2
+              %span.label.label-default Player
+            %h3
+              - @user_cards.each do |card|
+                %span.label.label-danger
+                  = card.value
+            - unless @game.winner
+              = link_to 'Hit', hit_game_path(@game), class: 'btn btn-primary', method: :put
+              = link_to 'Stand', stand_game_path(@game), class: 'btn btn-primary', method: :put
+      .row
+        .col-md-12
+          - if @game.winner
+            %h3
+              = "#{@game.winner.name} Wins!!!"
+              - if @game.winner.blackjack?(@game)
+                = "Won by Blackjack!!!"
+            = link_to 'Games List', games_path, class: 'btn btn-primary'
+            = link_to 'Replay', new_game_path, class: 'btn btn-primary'
+
     .col-md-4
       %table.table
         %thead
@@ -36,12 +48,3 @@
                 = game_card.user.name if game_card
               %td
                 = "#{game_card.card.name} (#{game_card.card.value})" if game_card
-  .row
-    .col-md-12
-      - if @game.winner
-        %h3
-          = "#{@game.winner.name} Wins!!!"
-          - if @game.winner.blackjack?(@game)
-            = "Won by Blackjack!!!"
-      = link_to 'Games List', games_path, class: 'btn btn-primary'
-      = link_to 'Replay', new_game_path, class: 'btn btn-primary'

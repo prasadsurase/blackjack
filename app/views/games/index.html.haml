@@ -2,7 +2,21 @@
   .row
     .col-md-12
       = link_to 'New Game', new_game_path, class: 'btn btn-primary'
-      Dealer Wins: #{@games_won_by_dealer} | Player Wins: #{@games_won_by_user}
+      %h4
+        Dealer Statistics:
+      Wins: #{admin_user.blackjacks + admin_user.majorities}
+      Amount: $#{admin_user.amount_won}
+      Blackjacks: #{admin_user.blackjacks}
+      Busts: #{admin_user.busts}
+      Majorities: #{admin_user.majorities}
+      %h4
+        Player Statistics:
+      Wins: #{current_user.blackjacks + current_user.majorities}
+      Amount: $#{current_user.amount_won}
+      Blackjacks: #{current_user.blackjacks}
+      Busts: #{current_user.busts}
+      Majorities: #{current_user.majorities}
+
   .row
     .col-md-10
       %table.table.table-striped

@@ -19,6 +19,7 @@ class Game < ApplicationRecord
   after_create :create_first_step
   after_create :associate_game_decks
   after_update :create_last_step
+  after_update :update_user_game_stats
 
   def hit
     self.steps.create!(kind: :hit)
@@ -69,5 +70,13 @@ class Game < ApplicationRecord
 
   def create_last_step
     self.steps.create!(kind: :game_over) if winner
+  end
+
+  def update_user_game_stats
+    if winner
+      winner.blackjack?(self) ? winner.increment!(:blackjacks, 1) : winner.increment!(:majorities, 1)
+      loser = winner.admin? ? user : admin
+      loser.increment!(:busts, 1)
+    end
   end
 end

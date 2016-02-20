@@ -17,4 +17,8 @@ class User < ApplicationRecord
   def bust?(game)
     current_points(game) > 21
   end
+
+  def amount_won
+    games_won.pluck(:bet).sum
+  end
 end
