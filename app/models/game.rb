@@ -39,7 +39,6 @@ class Game < ApplicationRecord
                end
 
       self.update({winner: winner}) and break if winner
-      #break if admin.current_points(self) >= 17
     end
   end
 

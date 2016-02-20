@@ -49,6 +49,9 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.2)
+    bullet (5.0.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (8.2.2)
     coderay (1.1.0)
     coffee-rails (4.1.1)
@@ -72,6 +75,13 @@ GEM
       html2haml
     erubis (2.7.0)
     execjs (2.6.0)
+    flay (2.7.0)
+      erubis (~> 2.7.0)
+      ruby_parser (~> 3.0)
+      sexp_processor (~> 4.0)
+    flog (4.3.2)
+      ruby_parser (~> 3.1, > 3.1.0)
+      sexp_processor (~> 4.4)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -190,6 +200,7 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.9.0)
     warden (1.2.6)
       rack (>= 1.0)
     web-console (3.1.1)
@@ -205,10 +216,13 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
+  bullet
   byebug
   coffee-rails (~> 4.1.0)
   devise
   erb2haml
+  flay
+  flog
   haml-rails (~> 0.9)
   jbuilder (~> 2.0)
   jquery-rails

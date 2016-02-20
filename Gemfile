@@ -46,6 +46,9 @@ group :development do
   gem 'spring'
   gem "erb2haml"
   gem 'pry'
+  gem 'bullet'
+  gem 'flog'
+  gem 'flay'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
