@@ -12,10 +12,12 @@ CARD_TYPES.each do |type|
   end
 end
 
+#we need to have 6 decks.
 6.times do |i|
   Deck.create!(name: "Deck #{i+1}")
 end
 
+# create 2 users 1) dealer/admin 2) player
 User.create!([{name: 'Dealer', admin: true}, {name: 'Player'}])
 
 #User.create!(email: 'admin@blackjack.com', password: 'password123', password_confirmation: 'password123', admin: true)

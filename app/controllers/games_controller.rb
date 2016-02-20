@@ -15,8 +15,6 @@
 class GamesController < ApplicationController
   def index
     @games = Game.finished.includes([:admin, :user])
-    @games_won_by_dealer = admin_user.games_won.count
-    @games_won_by_user = current_user.games_won.count
   end
 
   def new
@@ -33,6 +31,7 @@ class GamesController < ApplicationController
     render :new
   end
 
+  #show the cards that are assigned to the users
   def show
     @game = Game.find(params[:id])
     @user_cards = current_user.game_cards.where(game: @game).map(&:card)

@@ -13,26 +13,33 @@
 #
 
 class Game < ApplicationRecord
-  belongs_to :user
-  belongs_to :admin, -> { where admin: true }, class_name: 'User', foreign_key: :admin_id
+  belongs_to :user #player
+  belongs_to :admin, -> { where admin: true }, class_name: 'User', foreign_key: :admin_id #dealter
   belongs_to :winner, class_name: 'User', foreign_key: :winner_id, optional: true
 
   has_many :steps
-  has_many :game_decks
+  has_many :game_decks #decks assinged to this game. default is 6
   has_many :decks, through: :game_decks
   has_many :cards, through: :decks
 
   validates :user, :admin, presence: true
   validates :bet, numericality: { only_integer: true, greater_than: 0 }, presence: true
 
-  enum winning_type: [:majority, :blackjack]
+  enum winning_type: [:majority, :blackjack] #method of winning, either :majority or :blackjack
 
-  scope :finished, -> { where.not(winner_id: nil) }
+  scope :finished, -> { where.not(winner_id: nil) } #finished games are displayed on the games page
   scope :ongoing, -> { where(winner_id: nil) }
 
+  #first step is 'Game start'
   after_create :create_first_step
+
+  #we dont create seperate deck for every game. we game M-M deck. we create the third table entries
   after_create :associate_game_decks
+
+  #last step is 'Game over'
   after_update :create_last_step
+
+  #if winner is assigned, then update dealer's and player's game stats.
   after_update :update_user_game_stats
 
   def hit
@@ -69,6 +76,7 @@ class Game < ApplicationRecord
     update_winner
   end
 
+  #decide the winner depending upon the user's points
   def update_winner
     winner = if user.blackjack?(self)
                user
@@ -87,8 +95,10 @@ class Game < ApplicationRecord
   end
 
   def update_user_game_stats
+    # if winner is present then update the winner's game stats
     if winner
       winner.blackjack?(self) ? winner.increment!(:blackjacks, 1) : winner.increment!(:majorities, 1)
+      #find the loser and update his game stats
       loser = winner.admin? ? user : admin
       loser.increment!(:busts, 1)
     end

@@ -11,8 +11,8 @@
 #
 
 class Step < ApplicationRecord
-  belongs_to :game_card, optional: true
-  belongs_to :game
+  belongs_to :game_card, optional: true #through we game_card, we get access to all the models(game, card, user) for this step
+  belongs_to :game #step always belongs to a step
 
-  enum kind: [:game_start, :hit, :stand, :card_assigned, :game_over]
+  enum kind: [:game_start, :hit, :stand, :card_assigned, :game_over] #types of steps
 end

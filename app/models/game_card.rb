@@ -10,17 +10,17 @@
 #  updated_at :datetime         not null
 #
 
+#a record for this table is created whenever a card is assigned to a user(dealer or player)
 class GameCard < ApplicationRecord
   belongs_to :game
   belongs_to :card
   belongs_to :user
 
-  validates :game, :user, :card, presence: true
-
   after_create :create_step
 
   private
 
+  #create the step whenever card is assigned to any user
   def create_step
     game.steps.create!(kind: :card_assigned, game_card: self)
   end

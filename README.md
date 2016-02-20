@@ -3,6 +3,8 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
+in rails 5, belongs_to relationships are always validated for presence unless 'optional'
+
 ruby '2.2.2'
 
 After 'bundle install', run:

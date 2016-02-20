@@ -18,6 +18,7 @@ class Deck < ApplicationRecord
 
   private
 
+  #assign the cards to the deck. Card M-M Deck. DeckCard is the 3rd table.
   def assign_cards
     Card.all.each do |card|
       self.deck_cards.create!(card: card)
