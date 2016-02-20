@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :integer          not null, primary key
+#  name       :string           not null
+#  admin      :boolean          default(FALSE)
+#  blackjacks :integer          default(0), not null
+#  busts      :integer          default(0), not null
+#  majorities :integer          default(0), not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class User < ApplicationRecord
   has_many :games
   has_many :admin_games, class_name: 'Game', foreign_key: :admin_id

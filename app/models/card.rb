@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: cards
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Card < ApplicationRecord
   has_many :deck_cards
   has_many :decks, through: :deck_cards

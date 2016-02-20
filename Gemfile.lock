@@ -40,6 +40,9 @@ GEM
       method_source
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    annotate (2.7.0)
+      activerecord (>= 3.2, < 6.0)
+      rake (~> 10.4)
     arel (7.0.0)
     autoprefixer-rails (6.3.3)
       execjs
@@ -215,6 +218,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   bootstrap-sass
   bullet
   byebug

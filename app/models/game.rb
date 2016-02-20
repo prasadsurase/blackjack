@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: games
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  bet          :integer          not null
+#  admin_id     :integer          not null
+#  winner_id    :integer
+#  winning_type :integer          default("majority")
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Game < ApplicationRecord
   belongs_to :user
   belongs_to :admin, -> { where admin: true }, class_name: 'User', foreign_key: :admin_id
@@ -11,7 +25,7 @@ class Game < ApplicationRecord
   validates :user, :admin, presence: true
   validates :bet, numericality: { only_integer: true, greater_than: 0 }, presence: true
 
-  enum winning_type: [ :blackjack, :majority]
+  enum winning_type: [:majority, :blackjack]
 
   scope :finished, -> { where.not(winner_id: nil) }
   scope :ongoing, -> { where(winner_id: nil) }
