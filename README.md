@@ -3,7 +3,8 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-in rails 5, belongs_to relationships are always validated for presence unless 'optional'
+In rails 5, belongs_to relationships are always validated for presence unless 'optional'.
+find the ER diagram under 'doc'
 
 ruby '2.2.2'
 
