@@ -16,5 +16,7 @@ end
   Deck.create!(name: "Deck #{i+1}")
 end
 
+User.create!([{name: 'Dealer', admin: true}, {name: 'Player'}])
+
 #User.create!(email: 'admin@blackjack.com', password: 'password123', password_confirmation: 'password123', admin: true)
 #User.create!(email: 'prasad@blackjack.com', password: 'password123', password_confirmation: 'password123')

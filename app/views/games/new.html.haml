@@ -1,0 +1,6 @@
+.container
+  .row
+    .col-md-6
+      = simple_form_for @game, method: :post do |f|
+        = f.input :bet, label: 'Bet', error: 'Bet is mandatory'
+        = f.button :submit, class: 'btn btn-primary'

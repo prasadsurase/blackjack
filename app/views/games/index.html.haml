@@ -1,0 +1,32 @@
+.container
+  .row
+    .col-md-12
+      = link_to 'New Game', new_game_path, class: 'btn btn-primary'
+  .row
+    .col-md-10
+      %table.table.table-striped
+        %thead
+          %th Game #
+          %th Bet
+          %th Dealer Pts.
+          %th Player Pts.
+          %th Winner
+          %th Won By
+          %th Details
+        %tbody
+          - @games.each_with_index do |game, indx|
+            - admin, user = game.admin, game.user
+            %tr
+              %td= indx + 1
+              %td= "$ #{game.bet}"
+              %td= admin.current_points(game)
+              %td= user.current_points(game)
+              %td= game.winner.name
+              %td
+                - if admin.blackjack?(game) || user.blackjack?(game)
+                  = "Blackjack"
+                - elsif admin.bust?(game) || user.bust?(game)
+                  = "Bust"
+                - else
+                  = 'Majority'
+              %th= link_to 'View Details', '#'
