@@ -1,6 +1,6 @@
 .container
   .row
-    .col-md-6
+    .col-md-4
       .well
         %h2
           %span.label.label-default Dealer
@@ -8,7 +8,7 @@
           - @admin_cards.each do |card|
             %span.label.label-primary
               = card.value
-    .col-md-6
+    .col-md-4
       .well
         %h2
           %span.label.label-default Player
@@ -19,6 +19,23 @@
         - unless @game.winner
           = link_to 'Hit', hit_game_path(@game), class: 'btn btn-primary', method: :put
           = link_to 'Stand', stand_game_path(@game), class: 'btn btn-primary', method: :put
+    .col-md-4
+      %table.table
+        %thead
+          %th Step #
+          %th Action
+          %th Owner
+          %th Card
+        %tbody
+          - @game.steps.each_with_index do |step, indx|
+            - game_card = step.game_card
+            %tr
+              %td= indx + 1
+              %td= step.kind.to_s.humanize
+              %td
+                = game_card.user.name if game_card
+              %td
+                = "#{game_card.card.name} (#{game_card.card.value})" if game_card
   .row
     .col-md-12
       - if @game.winner

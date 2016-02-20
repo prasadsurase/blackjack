@@ -3,6 +3,7 @@ class Game < ApplicationRecord
   belongs_to :admin, -> { where admin: true }, class_name: 'User', foreign_key: :admin_id
   belongs_to :winner, class_name: 'User', foreign_key: :winner_id, optional: true
 
+  has_many :steps
   has_many :game_decks
   has_many :decks, through: :game_decks
   has_many :cards, through: :decks
@@ -15,16 +16,20 @@ class Game < ApplicationRecord
   scope :finished, -> { where.not(winner_id: nil) }
   scope :ongoing, -> { where(winner_id: nil) }
 
+  after_create :create_first_step
   after_create :associate_game_decks
+  after_update :create_last_step
 
   def hit
+    self.steps.create!(kind: :hit)
     user.game_cards.create!(game: self, card: cards.sample)
     update_winner
   end
 
   def stand
+    self.steps.create!(kind: :stand)
     loop do
-      admin.game_cards.create!(game: self, card: cards.sample)
+      gc = admin.game_cards.create!(game: self, card: cards.sample)
       winner = if admin.blackjack?(self)
                  admin
                elsif admin.bust?(self)
@@ -50,8 +55,6 @@ class Game < ApplicationRecord
     update_winner
   end
 
-  private
-
   def update_winner
     winner = if user.blackjack?(self)
                user
@@ -59,5 +62,13 @@ class Game < ApplicationRecord
                admin
              end
     self.update({winner: winner}) if winner
+  end
+
+  def create_first_step
+    self.steps.create!(kind: :game_start)
+  end
+
+  def create_last_step
+    self.steps.create!(kind: :game_over) if winner
   end
 end
