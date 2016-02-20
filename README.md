@@ -11,3 +11,7 @@ ruby '2.2.2'
 After 'bundle install', run:
 1) bin/rails db:environment:set RAILS_ENV=development
 2) bundle exec rake db:drop db:create db:migrate db:seed tmp:clear log:clear --trace
+
+TODO: 
+1) update the UI to use ActionCable.
+2) Add test cases.
